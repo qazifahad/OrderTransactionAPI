@@ -1,8 +1,12 @@
 package models
 
+import (
+	"gopkg.in/mgo.v2/bson"
+)
+
 type Product struct {
-    Id          string  `json:"id"`
-    Name        string  `json:"name"`
-    Quantity    int     `json:"quantity"`
-    Price       int     `json:"price"`
+    Id          bson.ObjectId   `json:"id" bson:"_id"`
+    Name        string          `json:"name" bson:"name"`
+    Quantity    int             `json:"quantity" bson:"quantity"`
+    Price       int             `json:"price" bson:"price"`
 }

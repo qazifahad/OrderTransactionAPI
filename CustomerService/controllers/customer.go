@@ -15,24 +15,26 @@ import (
 	"../models"
 )
 
+// CustomerController structure
 type (
 	CustomerController struct{
-		dbCollection *mgo.Collection
+		dbCollection *mgo.Collection // Customer collection
 	}
 )
 
+// CustomerController 'constructor'
 func NewCustomerController(dbCollection *mgo.Collection) *CustomerController {
 	 return &CustomerController{dbCollection}
 }
 
 // CreateCustomer creates a new customer based on customer model
 func (this CustomerController) CreateCustomer(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	customer := models.Customer{}  // Stub an user to be populated from the body
-    json.NewDecoder(r.Body).Decode(&customer)  // Populate the user data
-	customer.Id = bson.NewObjectId()  // Add a customer Id
+	customer := models.Customer{}  // Stub a customer to be populated from the body
+    json.NewDecoder(r.Body).Decode(&customer)  // Populate the customer data
+	customer.Id = bson.NewObjectId()  // Add a customerId
 
-    this.dbCollection.Insert(customer)  // Write the new customer to database in dbCollection
-
+    this.dbCollection.Insert(customer) // Write the new customer to database specifically to customer collection
+    
     customerJSON, _ := json.Marshal(customer)  // Marshal provided interface into JSON structure
 
 	// Write content-type, statuscode, payload
@@ -55,7 +57,7 @@ func (this CustomerController) FindCustomer(w http.ResponseWriter, r *http.Reque
 
     customer := models.Customer{} // Stub customer
 
-    // Fetch user from collection
+    // Fetch customer from customer collection
     if err := this.dbCollection.FindId(objectId).One(&customer); err != nil {
         w.WriteHeader(404)
         return
@@ -83,7 +85,7 @@ func (this CustomerController) DeleteCustomer(w http.ResponseWriter, r *http.Req
     // Grab id
     objectId := bson.ObjectIdHex(id)
 
-    // Remove user
+    // Remove customer
     if err := this.dbCollection.RemoveId(objectId); err != nil {
         w.WriteHeader(404)
         return
