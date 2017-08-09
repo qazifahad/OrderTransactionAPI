@@ -7,6 +7,9 @@ import (
 	// Third party packages
 	"gopkg.in/mgo.v2"
 	"github.com/julienschmidt/httprouter"
+
+	// Internal packages
+	"./Routes"
 )
 
 func main() {  
@@ -18,7 +21,7 @@ func main() {
 
 	defer dbSession.Close()
 
-	SetupRoutes(r,dbSession)
+	routes.SetupRoutes(r,dbSession)
 
 	// Fire up the server
     http.ListenAndServe("localhost:8080", r)

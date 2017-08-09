@@ -1,4 +1,4 @@
-package main
+package routes
 
 import (
 	// Third party packages
@@ -6,11 +6,11 @@ import (
 	"github.com/julienschmidt/httprouter"
 
 	// Internal packages
-	CustomerController "./CustomerService/controllers"
-	ProductController "./ProductService/controllers"
-	CouponController "./CouponService/controllers"
-	ShipmentController "./ShipmentService/controllers"
-	OrderController "./OrderService/controllers"
+	CustomerController "../CustomerService/controllers"
+	ProductController "../ProductService/controllers"
+	CouponController "../CouponService/controllers"
+	ShipmentController "../ShipmentService/controllers"
+	OrderController "../OrderService/controllers"
 )
 
 func SetupRoutes(r *httprouter.Router,s *mgo.Session) {
@@ -38,6 +38,7 @@ func SetupRoutes(r *httprouter.Router,s *mgo.Session) {
 	// Product routes
 	r.POST("/product", productController.CreateProduct)
 	r.GET("/product/:id", productController.FindProduct)
+	r.PUT("/product/:id/reduce/:quantity",productController.ReduceProductQuantity)
 	r.DELETE("/product/:id", productController.DeleteProduct)
 
 	// Coupon routes
