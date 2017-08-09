@@ -1,15 +1,16 @@
 package models
 
 import (
+	"gopkg.in/mgo.v2/bson"
 	"time"
 )
 
 type Coupon struct {
-    Id              string      `json:"Id"`
-    Name            string      `json:"name"`
-    ValidStartDate  time.Time   `json:"validStartDate"`
-    ValidEndDate    time.Time   `json:"validEndDate"`
-    Quantity        int         `json:"quantity"`
-    DiscType        string      `json:"discType"`
-    DiscVal         int         `json:"discVal"`
+    Id              bson.ObjectId   `json:"id" bson:"_id"`
+    Name            string          `json:"name" bson:"name"`
+    ValidStartDate  time.Time       `json:"validStartDate" bson:"validStartDate"`
+    ValidEndDate    time.Time       `json:"validEndDate" bson:"validEndDate"`
+    Quantity        int             `json:"quantity" bson:"quantity"`
+    DiscType        string          `json:"discType" bson:"discType"`
+    DiscVal         int             `json:"discVal" bson:"discVal"`
 }

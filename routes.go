@@ -8,6 +8,7 @@ import (
 	// Internal packages
 	CustomerController "./CustomerService/controllers"
 	ProductController "./ProductService/controllers"
+	CouponController "./CouponService/controllers"
 )
 
 func SetupRoutes(r *httprouter.Router,s *mgo.Session) {
@@ -16,10 +17,12 @@ func SetupRoutes(r *httprouter.Router,s *mgo.Session) {
 	// Assign collections
 	customerCollection := db.C("customer") 
 	productCollection := db.C("product")
+	couponCollection := db.C("coupon")
 
 	// Get controller instances
 	customerController := CustomerController.NewCustomerController(customerCollection)
 	productController := ProductController.NewProductController(productCollection)
+	couponController := CouponController.NewCouponController(couponCollection)
 
 	// Customer routes
 	r.POST("/customer", customerController.CreateCustomer)
@@ -31,5 +34,8 @@ func SetupRoutes(r *httprouter.Router,s *mgo.Session) {
 	r.GET("/product/:id", productController.FindProduct)
 	r.DELETE("/product/:id", productController.DeleteProduct)
 
-	
+	// Coupon routes
+	r.POST("/coupon", couponController.CreateCoupon)
+	r.GET("/coupon/:id", couponController.FindCoupon)
+	r.DELETE("/coupon/:id", couponController.DeleteCoupon)
 }
