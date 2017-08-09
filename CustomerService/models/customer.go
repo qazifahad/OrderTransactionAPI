@@ -1,6 +1,11 @@
 package models
 
+import (
+	// Third party Libraries
+	"gopkg.in/mgo.v2/bson"
+)
+
 type Customer struct {
-    Id      string  `json:"id"`
-    Name    string  `json:"name"`
+    Id      bson.ObjectId   `json:"id" bson:"_id"`
+    Name    string          `json:"name" bson:"name"`
 }
