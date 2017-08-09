@@ -11,6 +11,6 @@ type Coupon struct {
     ValidStartDate  time.Time       `json:"validStartDate" bson:"validStartDate"`
     ValidEndDate    time.Time       `json:"validEndDate" bson:"validEndDate"`
     Quantity        int             `json:"quantity" bson:"quantity"`
-    DiscType        string          `json:"discType" bson:"discType"`
+    DiscType        DiscountType    `json:"discType" bson:"discType"`
     DiscVal         int             `json:"discVal" bson:"discVal"`
 }

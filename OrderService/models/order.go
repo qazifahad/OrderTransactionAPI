@@ -1,10 +1,14 @@
 package models
 
+import (
+	"gopkg.in/mgo.v2/bson"
+)
+
 type Order struct {
-    Id              string          `json:"id"`
-    CustomerId      string          `json:"customerId"`
-    CouponId        string          `json:"couponId"`
-    DeliveryInfo    Delivery        `json:"deliveryInfo"`
-    PaymentInfo     Payment         `json:"paymentInfo"`
-    Status          OrderStatus     `json:"status"`
+    Id              bson.ObjectId   `json:"id" bson:"_id"`
+    CustomerId      string          `json:"customerId" bson:"customerId"`
+    CouponId        string          `json:"couponId" bson:"couponId"`
+    DeliveryInfo    Delivery        `json:"deliveryInfo" bson:"deliveryInfo"`
+    PaymentInfo     Payment         `json:"paymentInfo" bson:"paymentInfo"`
+    Status          OrderStatus     `json:"status" bson:"status"`
 }
