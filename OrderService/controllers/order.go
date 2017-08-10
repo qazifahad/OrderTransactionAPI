@@ -101,8 +101,6 @@ func (this OrderController) AddOrderLine(w http.ResponseWriter, r *http.Request,
         orderLine models.OrderLine 
     }{})
     json.NewDecoder(r.Body).Decode(&data)  // Populate the order data
-    
-    fmt.Println(data)
 
     orderLine := models.OrderLine{
         ProductId: data.orderLine.ProductId,
