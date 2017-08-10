@@ -54,14 +54,13 @@ func (this OrderController) FindOrder(w http.ResponseWriter, r *http.Request, p 
     }
 
     objectId := bson.ObjectIdHex(id) // Grab id
-
     order := models.Order{} // Stub order
 
     // Fetch order from order collection
-    if err := this.dbCollection.FindId(objectId).One(&order); err != nil {
-        w.WriteHeader(404)
+    if err := this.dbCollection.FindId(objectId).One(&order); err!=nil {
+        w.WriteHeader(400)
         return
-    }   
+    } 
 
     orderJSON, _ := json.Marshal(order) // Marshal provided interface into JSON structure
 
@@ -82,7 +81,7 @@ func (this OrderController) DeleteOrder(w http.ResponseWriter, r *http.Request, 
         return
     }
 
-    // Grab id
+    // Convert id to objectId
     objectId := bson.ObjectIdHex(id)
 
     // Remove order
@@ -93,4 +92,33 @@ func (this OrderController) DeleteOrder(w http.ResponseWriter, r *http.Request, 
 
     // Write status
     w.WriteHeader(200)
+}
+
+func (this OrderController) AddOrderLine(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+    // Stub data to be populated from the body
+    data := (struct{
+        orderId bson.ObjectId
+        orderLine models.OrderLine 
+    }{})
+    json.NewDecoder(r.Body).Decode(&data)  // Populate the order data
+    
+    fmt.Println(data)
+
+    orderLine := models.OrderLine{
+        ProductId: data.orderLine.ProductId,
+        Quantity: data.orderLine.Quantity,
+    }
+
+
+    order := models.Order{} // Stub coupon
+
+    // Find product with objectId and decrease stock in the amount of decQuantity if stock is sufficient
+    change := mgo.Change{
+        Update: bson.M{"$push": bson.M{"orderLines":orderLine}},
+        ReturnNew: true,
+    }
+    if _, err := this.dbCollection.FindId(data.orderId).Apply(change, &order); err != nil {
+        w.WriteHeader(400)
+        return
+    }
 }

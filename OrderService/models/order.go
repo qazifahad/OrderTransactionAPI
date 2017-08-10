@@ -11,4 +11,5 @@ type Order struct {
     DeliveryInfo    Delivery        `json:"deliveryInfo" bson:"deliveryInfo"`
     PaymentInfo     Payment         `json:"paymentInfo" bson:"paymentInfo"`
     Status          OrderStatus     `json:"status" bson:"status"`
+    OrderLines      []OrderLine     `json:"orderLines" bson:"orderLines"`
 }

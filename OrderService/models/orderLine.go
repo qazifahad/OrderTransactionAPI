@@ -1,7 +1,10 @@
 package models
 
+import (
+	"gopkg.in/mgo.v2/bson"
+)
+
 type OrderLine struct {
-	OrderId 	string 	`json:"orderId"`
-	ProductId 	string 	`json:"productId"`
-	Quantity 	int 	`json:"quantity"`
+	ProductId 	bson.ObjectId 	`json:"productId" bson:"productId"`
+	Quantity 	int 			`json:"quantity" bson:"quantity"`
 }

@@ -38,12 +38,14 @@ func SetupRoutes(r *httprouter.Router,s *mgo.Session) {
 	// Product routes
 	r.POST("/product", productController.CreateProduct)
 	r.GET("/product/:id", productController.FindProduct)
-	r.PUT("/product/:id/reduce/:quantity",productController.ReduceProductQuantity)
+	r.POST("/product/:id/reduce/:quantity",productController.ReduceProductQuantity)
 	r.DELETE("/product/:id", productController.DeleteProduct)
 
 	// Coupon routes
 	r.POST("/coupon", couponController.CreateCoupon)
 	r.GET("/coupon/:id", couponController.FindCoupon)
+	r.GET("/coupon/:id/valid", couponController.CheckCouponValidity)
+	r.POST("/coupon/:id/reduce/:quantity", couponController.ReduceCouponQuantity)
 	r.DELETE("/coupon/:id", couponController.DeleteCoupon)
 
 	// Shipment routes
@@ -54,5 +56,6 @@ func SetupRoutes(r *httprouter.Router,s *mgo.Session) {
 	// Order routes
 	r.POST("/order", orderController.CreateOrder)
 	r.GET("/order/:id", orderController.FindOrder)
+	r.PUT("/order/",orderController.AddOrderLine)
 	r.DELETE("/order/:id", orderController.DeleteOrder)
 }

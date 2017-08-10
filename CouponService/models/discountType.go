@@ -3,6 +3,6 @@ package models
 type DiscountType int
 
 const (
-	Percentage DiscountType = iota
+	Percentage DiscountType = iota + 1
 	Nominal
 )
