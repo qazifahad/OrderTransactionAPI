@@ -1,9 +1,20 @@
 # OrderTransactionAPI
-REST API for manage order transaction.
+REST API to manage order transaction.
 
 ## Requirements
 * Go 1.8.x+
 * MongoDB 3.4.x+
+
+
+### 3. Install Third Party Packages
+Install packages by issuing in cmd:
+```
+go get gopkg.in/validator.v2 
+go get github.com/julienschmidt/httprouter
+go get gopkg.in/mgo.v2
+go get gopkg.in/mgo.v2/bson
+```
+
 
 ## API Route
 ### Customer
